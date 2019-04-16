@@ -1,0 +1,27 @@
+.Container
+{
+    margin-top: 35px;
+}
+.dropdown-menu {
+    background-color: #F1F1F1;
+    top:0px;
+}
+
+.dropdown-item {
+    color: #629D99;
+
+}
+
+.dropdown-item:hover {
+    text-decoration: underline;
+    background-color: #F1F1F1;
+    color: #629D99;
+
+}
+
+.dropdown-item:focus {
+    color: white;
+    background-color: #776E61;
+    text-decoration: none;
+
+}

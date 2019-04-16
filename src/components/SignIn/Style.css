@@ -1,0 +1,57 @@
+
+.HomePage
+{
+  background-image: url("../../images/library.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+   
+}
+
+.HomePage_Navbar
+{
+  height:625px;
+  background-color: rgba(202, 146, 116, 0.774);
+}
+.SignIn_Form
+{
+  position: absolute;
+  right:20px;
+  
+}
+.SignIn_form-btn
+{
+  background-color: #58371F !important;
+  border-color: #58371F !important;
+}
+.SignUp_form
+{
+  width:36%;
+  position: relative;
+  left:60%;
+  margin:25px;
+  padding: 20px;
+  border: 2px solid rgb(202, 146, 116);
+  border-radius: 10px;
+  background-color: rgba(202, 146, 116, 0.774);
+}
+.SignUp_form-text
+{
+  color: #58371F !important;
+  font-size: 25px;
+  font-weight: bold;
+}
+.SignUp_form-btn
+{
+  background-color: #58371F !important;
+  border-color: #58371F !important;
+ 
+}
+.ImageUpload
+{
+  
+  border:1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: white !important;
+  padding: 5px;
+  margin-right: 3px;
+}

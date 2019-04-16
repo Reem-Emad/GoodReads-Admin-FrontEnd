@@ -1,0 +1,23 @@
+.navbarStyle 
+{
+    background-color: #EFE4D6 !important;
+    border-bottom: 2px solid rgb(167, 138, 104)!important;
+    /* position: absolute; */
+}
+.navbarLinks
+{
+    color: #382110;
+    font-size: 18px;
+    font-weight:bold;
+}
+.navbarSearchBtn 
+{
+    background-color: #382110 !important;
+    border-color: #382110 !important;
+    color: white !important;
+}
+.pages
+{
+    margin:auto !important;
+
+}
