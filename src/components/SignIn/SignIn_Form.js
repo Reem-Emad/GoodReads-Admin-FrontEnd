@@ -7,6 +7,7 @@ import { Image } from 'react-bootstrap';
 import { MyContext } from '../../App';
 import Logo from '../../images/logo.png';
 import './Style.css';
+import { Z_BLOCK } from 'zlib';
 
 class SignIn extends React.PureComponent {
 
@@ -17,7 +18,7 @@ class SignIn extends React.PureComponent {
     }
     handleSubmit = (existingUsers, addLoginedUser) => (event) => {
         event.preventDefault();
-        
+
         const user = existingUsers.find(element => {
             if (element.email === this.state.enteredMail)
                 return element;
@@ -56,11 +57,11 @@ class SignIn extends React.PureComponent {
                     (
                         <>
                             <Navbar expand="lg" className="HomePage_Navbar">
-                                <Navbar.Brand style={{ marginLeft: '50px' }}><Image src={Logo} /></Navbar.Brand>
+                                <Navbar.Brand style={{ marginLeft: '50px',marginTop: '-519px'}}><Image src={Logo} /></Navbar.Brand>
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                                 <Navbar.Collapse id="basic-navbar-nav">
-                                    <Form inline className="SignIn_Form" onSubmit={this.handleSubmit(value.state.users, value.addLoginedUser)}>
-                                        <Form.Group className="mr-2" >
+                                    <Form  style={{marginRight: '530px',marginTop: '-85px'}} className="SignIn_Form" onSubmit={this.handleSubmit(value.state.users, value.addLoginedUser)}>
+                                        <Form.Group className="mr-2"  >
                                             <Form.Control type="email" name='enteredMail' placeholder="Enter email" onChange={this.handleChange} value={this.state.enteredMail} />
                                         </Form.Group>
                                         <Form.Group className="mr-2" >

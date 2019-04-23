@@ -6,7 +6,9 @@
   background-size: cover;
    
 }
-
+.formst{
+  display:block 
+}
 .HomePage_Navbar
 {
   height:625px;
