@@ -21,6 +21,6 @@ export const getCategoriestById = (id) => {
 
 export const editCategory = ({ name,id}) => {
 
-    return axios.patch(`${BackEnd_URL}/api/categories/${id}`,{name})
+    return axios.patch(`${BACKEND_URL}/api/categories/${id}`,{name})
         .then(res => res.data);
 }
