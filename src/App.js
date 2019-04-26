@@ -30,14 +30,14 @@ class App extends React.PureComponent {
         users: Users,
         Books: Books,
         Authors: Authors,
-        loginedUser: {}
+        loginedAdmin: {}
     }
     addNewUser = (newUser) => {
         const { users } = this.state;
         this.setState({ users: [...users, newUser] });
     }
-    addLoginedUser = (loginedUser) => {
-        this.setState({ loginedUser });
+    addLoginedAdmin = (loginedAdmin) => {
+        this.setState({ loginedAdmin });
     }
     updateAuthors = (updatedAuthors) => {
         this.setState({ Authors: updatedAuthors });
@@ -46,12 +46,12 @@ class App extends React.PureComponent {
         const value = {
             state: this.state,
             addNewUser: this.addNewUser,
-            addLoginedUser: this.addLoginedUser,
+            addLoginedAdmin: this.addLoginedAdmin,
             updateAuthors: this.updateAuthors,
         }
 
 
-        if (Object.keys(this.state.loginedUser).length === 0)
+        if (Object.keys(this.state.loginedAdmin).length === 0)
             return (
                 <MyContext.Provider value={value}>
                     <Router>

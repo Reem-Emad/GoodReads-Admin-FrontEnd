@@ -6,38 +6,44 @@ import { Button } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
 import { MyContext } from '../../App';
 import Logo from '../../images/logo.png';
+import { login, getProfile } from '../../API/Admin';
 import './Style.css';
 import { Z_BLOCK } from 'zlib';
 
 class SignIn extends React.PureComponent {
 
     state = {
-        enteredMail: '',
-        enteredPassword: '',
+        email: '',
+        password: '',
         enteredDataValidation: ''
     }
-    handleSubmit = (existingUsers, addLoginedUser) => (event) => {
+    handleSubmit = (addLoggedInAdmin) => (event) => {
         event.preventDefault();
+        const { email, password } = this.state;
 
-        const user = existingUsers.find(element => {
-            if (element.email === this.state.enteredMail)
-                return element;
-        })
-        if (user === undefined)
-            this.setState({ enteredDataValidation: 'account not exist' })
+        if (email === '' && password === '')
+            this.setState({ enteredDataValidation: 'Enter email and password please' })
+        else if (password === '')
+            this.setState({ enteredDataValidation: 'Enter password please' })
+        else if (email === '')
+            this.setState({ enteredDataValidation: 'Enter email please' })
+
         else {
-            if (user.password === this.state.enteredPassword && user.Admin === false) {
-                this.setState({ enteredDataValidation: 'vaild user' })
-                addLoginedUser(user);
-                // this.props.history.push('/user/home');
-            }
-            else if (user.password === this.state.enteredPassword && user.Admin === true) {
-                this.setState({ enteredDataValidation: 'vaild admin' })
-                addLoginedUser(user);
-                this.props.history.push('/admin/categories');
-            }
-            else
-                this.setState({ enteredDataValidation: 'incorrect password' })
+            login({ email, password })
+                .then(res => {
+
+                    localStorage.setItem('adminToken', res.token);
+                    getProfile()
+                        .then(res => { addLoggedInAdmin(res) })
+                        .catch(err => {
+                            this.setState({ enteredDataValidation: 'please try again later' })
+                        })
+                    this.props.history.push('/admin/home');
+                })
+                .catch(err => {
+
+                    this.setState({ enteredDataValidation: 'Incorrect mail or password' })
+                })
         }
 
 
@@ -57,20 +63,20 @@ class SignIn extends React.PureComponent {
                     (
                         <>
                             <Navbar expand="lg" className="HomePage_Navbar">
-                                <Navbar.Brand style={{ marginLeft: '50px',marginTop: '-519px'}}><Image src={Logo} /></Navbar.Brand>
+                                <Navbar.Brand style={{ marginLeft: '50px' }}><Image src={Logo} /></Navbar.Brand>
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                                 <Navbar.Collapse id="basic-navbar-nav">
-                                    <Form  style={{marginRight: '530px',marginTop: '-85px'}} className="SignIn_Form" onSubmit={this.handleSubmit(value.state.users, value.addLoginedUser)}>
-                                        <Form.Group className="mr-2"  >
-                                            <Form.Control type="email" name='enteredMail' placeholder="Enter email" onChange={this.handleChange} value={this.state.enteredMail} />
+                                    <Form inline className="SignIn_Form" onSubmit={this.handleSubmit(value.addLoggedInAdmin)}>
+                                        <Form.Group className="mr-2" >
+                                            <Form.Control type="email" name='email' placeholder="Enter email" onChange={this.handleChange} value={this.state.email} />
                                         </Form.Group>
                                         <Form.Group className="mr-2" >
-                                            <Form.Control type="password" name='enteredPassword' placeholder="Password" onChange={this.handleChange} value={this.state.enteredPassword} />
+                                            <Form.Control type="password" name='password' placeholder="Password" onChange={this.handleChange} value={this.state.password} />
                                         </Form.Group>
                                         <Button variant="primary" type="submit" className="mr-2 SignIn_form-btn">
                                             Sign in
                                           </Button>
-                                        <Form.Text style={{ color: "red" }}>{this.state.enteredDataValidation}</Form.Text>
+                                        <Form.Text style={{ color: 'darkred', fontWeight: 'bold' }}>{this.state.enteredDataValidation}</Form.Text>
                                     </Form>
 
                                 </Navbar.Collapse>
