@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Form, Modal, Button } from 'react-bootstrap';
-
+import { editCategory} from '../../API/category';
 
 export default class EditCategory extends Component {
     constructor(props) {
@@ -44,7 +44,7 @@ export default class EditCategory extends Component {
                 Name: ''
             })
             //here should add the category using back end
-
+               
 
             //finaly close modal
             this.handleClose();

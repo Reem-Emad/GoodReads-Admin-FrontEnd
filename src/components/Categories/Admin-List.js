@@ -3,19 +3,29 @@ import EditCard from './Edit-Card';
 import CategirosData from '../../Categories';
 import Navbar from '../Shared/Navbar';
 import { Row } from 'react-bootstrap';
-import AddCategory from './Add-Category'
+import AddCategory from './Add-Category';
+import {getCategories} from '../../API/category';
 
 class CategoriesAdminList extends React.Component {
 
      state = {
-          Categiros: CategirosData
+          Categories: []
      }
-
+     componentDidMount() {
+          getCategories()
+              .then(res => {
+                  this.setState({ Categories: res });
+              })
+              .catch(err => {
+                  console.log(err)
+              })
+  
+      }
      DeleteHandelAdmin = (id) => {
-          const res = this.state.Categiros.filter(data =>
+          const res = this.state.Categories.filter(data =>
                data.Id !== id
           )
-          this.setState({ Categiros: res })
+          this.setState({ Categories: res })
      }
 
      render() {
@@ -24,7 +34,7 @@ class CategoriesAdminList extends React.Component {
                     <Navbar></Navbar>
                     <AddCategory />
                     <Row className="no-gutters">
-                         {this.state.Categiros.map(b =>
+                         {this.state.Categories.map(b =>
                               <EditCard key={b.Id}
                                    id={b.Id}
                                    name={b.Name}
