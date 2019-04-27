@@ -36,7 +36,9 @@ class SignIn extends React.PureComponent {
 
                     this.setState({ enteredDataValidation: '' })
 
-                    addLoggedInAdmin(res.profile)
+                    addLoggedInAdmin(res.profile);
+                    
+                    this.props.history.push('/admin/books');
                 })
                 .catch(err => {
 

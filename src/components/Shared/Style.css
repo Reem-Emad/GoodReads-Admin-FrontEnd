@@ -21,3 +21,29 @@
     margin:auto !important;
 
 }
+
+.search-results
+{
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: white;
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    width: 300px;
+    padding: 6px;
+    
+    
+}
+.search-results-list
+{
+    list-style-type:none;
+}
+.search-results-ListItems
+{
+    padding: 5px;
+    font-size: 18px;
+    color: #382110;
+    
+
+}

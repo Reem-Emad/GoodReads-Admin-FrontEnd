@@ -1,91 +1,72 @@
 import React from 'react';
-import books from '../../Books';
-import Authors from '../../Authors';
 import Navbar from '../Shared/Navbar';
 import './Style.css';
-import { Dropdown, Row, Container, Col, Card, Button ,ButtonGroup } from 'react-bootstrap';
+import StarRatingComponent from 'react-star-rating-component';
+import { Dropdown, Row, Container, Col, Card, Button, ButtonGroup } from 'react-bootstrap';
+import { getBooksById } from '../../API/Book';
+import { withRouter } from 'react-router-dom';
+
 
 class BookDetails extends React.Component {
-    getAuthor=(name)=>(e)=>{
-
-        const author= Authors.find(element => {
-             if(element.Name===name)
-                return element;
-         })
-         this.props.history.push(`/authorDetailes/${author.id}`);
-             
-           }
-    render() {
+    state = {
+        Book: {},
+        error: '',
+    }
+    componentDidMount() {
         const id = this.props.match.params.id;
+        getBooksById(id)
+            .then(res => {
+                this.setState({ Book: res });
+            })
+            .catch(err => {
+                this.setState({ error: 'server error' })
+            })
 
-        let Book = books.find((b) => {
-            return (b.id === +id);
-        });
-             
+    }
+    showAuthor = (e) => {
+
+        this.props.history.push(`/AuthorDetailes/${this.state.Book.authorData[0].id}`)
+    }
+
+    render() {
+
         return (
             <>
-               <Navbar></Navbar>
+                <Navbar></Navbar>
                 <Container className="detailedCard">
                     <Row>
                         <Col md="1"></Col>
                         <Col md="3">
                             <Card style={{ width: '15rem', height: '20rem' }}>
-                                <Card.Img className="imgMargin" variant="top" src={Book.cover} />
-                                <Dropdown as={ButtonGroup}>
-                                    <Button variant="success">Want to Read</Button>
+                                <Card.Img className="imgMargin" variant="top" src={this.state.Book.cover} />
 
-                                    <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
 
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item hred="#/action-1">Read</Dropdown.Item>
-                                        <Dropdown.Item hred="#/action-2">Currently Reading</Dropdown.Item>
-                                        <Dropdown.Item hred="#/action-3">Add Shelf</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                                <div className="rate">
-                                    <input type="radio" id="star5" name="rate" value="5" />
-                                    <label htmlFor="star5" title="text">5 stars</label>
-                                    <input type="radio" id="star4" name="rate" value="4" />
-                                    <label htmlFor="star4" title="text">4 stars</label>
-                                    <input type="radio" id="star3" name="rate" value="3" />
-                                    <label htmlFor="star3" title="text">3 stars</label>
-                                    <input type="radio" id="star2" name="rate" value="2" />
-                                    <label htmlFor="star2" title="text">2 stars</label>
-                                    <input type="radio" id="star1" name="rate" value="1" />
-                                    <label htmlFor="star1" title="text">1 stars</label>
-                                </div>
-                             
                             </Card>
                         </Col>
                         <Col md="8">
                             <Card style={{ width: '100%', border: 'none' }}>
                                 <Card.Body>
-                                    <Card.Title>{Book.title}</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted" style={{cursor: 'pointer',textDecoration:'underline'}} onClick={this.getAuthor(Book.author)}>By {Book.author}</Card.Subtitle>
+                                    <Card.Title>{this.state.Book.title}</Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted" style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={this.showAuthor} >By {this.state.Book.author}</Card.Subtitle>
                                     {/* rating */}
 
-                                    <div className="rate">
-                                        <input type="radio" id="star5" name="rate" value="5" />
-                                        <label htmlFor="star5" title="text">5 stars</label>
-                                        <input type="radio" id="star4" name="rate" value="4" />
-                                        <label htmlFor="star4" title="text">4 stars</label>
-                                        <input type="radio" id="star3" name="rate" value="3" />
-                                        <label htmlFor="star3" title="text">3 stars</label>
-                                        <input type="radio" id="star2" name="rate" value="2" />
-                                        <label htmlFor="star2" title="text">2 stars</label>
-                                        <input type="radio" id="star1" name="rate" value="1" />
-                                        <label htmlFor="star1" title="text">1 stars</label>
-                                    </div>
+                                    <StarRatingComponent
+                                        name="rate"
+                                        starCount={5}
+                                        value={this.state.Book.avgRate}
+                                        starColor="#ffcf22"
+                                        emptyStarColor="#58371F"
+                                    />
                                     <br></br>
                                     <br></br>
 
                                     {/* rating */}
 
                                     <Card.Text className="fontStyle">
-                                        {Book.description}
+                                        {this.state.Book.description}
                                     </Card.Text>
-                                    <Card.Text >{Book.pages} Page </Card.Text>
-                                    <Card.Text >{Book.category}</Card.Text>
+                                    <Card.Text >{this.state.Book.numOfpages} Page </Card.Text>
+                                    <Card.Text >{this.state.Book.category}</Card.Text>
                                 </Card.Body>
                             </Card>
 
@@ -98,4 +79,4 @@ class BookDetails extends React.Component {
 
     }
 }
-export default BookDetails;
+export default withRouter(BookDetails);
