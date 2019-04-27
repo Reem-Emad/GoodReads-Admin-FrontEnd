@@ -6,9 +6,9 @@ import { Button } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
 import { MyContext } from '../../App';
 import Logo from '../../images/logo.png';
-import { login, getProfile } from '../../API/Admin';
+import { login } from '../../API/Admin';
 import './Style.css';
-import { Z_BLOCK } from 'zlib';
+
 
 class SignIn extends React.PureComponent {
 
@@ -33,12 +33,10 @@ class SignIn extends React.PureComponent {
                 .then(res => {
 
                     localStorage.setItem('adminToken', res.token);
-                    getProfile()
-                        .then(res => { addLoggedInAdmin(res) })
-                        .catch(err => {
-                            this.setState({ enteredDataValidation: 'please try again later' })
-                        })
-                    this.props.history.push('/admin/home');
+
+                    this.setState({ enteredDataValidation: '' })
+
+                    addLoggedInAdmin(res.profile)
                 })
                 .catch(err => {
 
