@@ -44,7 +44,13 @@ export default class EditCategory extends Component {
                 Name: ''
             })
             //here should add the category using back end
-               
+          handleEdit =( Name )=>(e)=>{
+                editCategory(Name)  .
+                  then(this.setState({ enteredDataValidation: '' }))
+                  .then(this.props.history.push('/admin/categores'))
+                .catch(err => { this.setState({ error: 'server error' }); })
+        }
+    
 
             //finaly close modal
             this.handleClose();
@@ -85,7 +91,7 @@ export default class EditCategory extends Component {
                             <Button variant="secondary" onClick={this.handleClose}>
                                 Close
                        </Button>
-                            <Button variant="primary" onClick={this.handleSubmit}>
+                            <Button variant="primary"  onClick={this.handelEdit(this.props.name)}>
                                 Edit
                        </Button>
                         </Modal.Footer>
