@@ -2,9 +2,7 @@ import React from 'react';
 import Navbar from '../Shared/Navbar';
 import './Style.css';
 import { getAuthorById } from '../../API/Author';
-import { Link } from 'react-router-dom';
-import { getBooks } from '../../API/Book'
-import { Dropdown, Row, Container, Col, Card, Button, ButtonGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Row, Container, Col, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 class AuthorDetails extends React.Component {
     constructor() {
         super()
