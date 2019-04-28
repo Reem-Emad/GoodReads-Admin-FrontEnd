@@ -63,42 +63,42 @@ class AddBook extends React.Component {
             <>
                 <Navbar></Navbar>
                 <Row className="no-gutters" className="justify-content-md-center" >
-              
-                <Card tag="div" className="text-center" style={{ width: '30rem' }}>
-  <Card.Header>Add Book!</Card.Header>
-  <Card.Body>
-    <Form onSubmit={this.addNewBook}>
-                        <Form.Group >
-                            <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" name="title" onChange={this.handleChange} value={this.state.title} />
-                        </Form.Group>
-                        <Form.Group >
-                            <Form.Label>Author</Form.Label>
-                            <Form.Control type="text" name="author" onChange={this.handleChange} value={this.state.author} />
-                        </Form.Group>
-                        <Form.Group >
-                            <Form.Label>Category</Form.Label>
-                            <Form.Control type="text" name="category" onChange={this.handleChange} value={this.state.category} />
-                        </Form.Group>
-                        <Form.Group >
-                            <Form.Label>Pages</Form.Label>
-                            <Form.Control type="number" name="numOfPages" onChange={this.handleChange} value={this.state.numOfpages} />
-                        </Form.Group>
-                        <Form.Group >
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows="3" name="description" onChange={this.handleChange} value={this.state.description} />
-                        </Form.Group>
-                        <Form.Group >
-                            <Form.Label>cover</Form.Label>
-                            <Form.Control type="text" name="cover" onChange={this.handleChange} value={this.state.cover} />
-                        </Form.Group>
-                        <Form.Text style={{ color: 'darkred', fontWeight: 'bold' }}>{this.state.enteredDataValidation}</Form.Text>
-                        <Button variant="primary" size="lg" block onClick={this.addNewBook}>
-                            Add
+
+                    <Card tag="div" className="text-center" style={{ width: '30rem' }}>
+                        <Card.Header>Add Book!</Card.Header>
+                        <Card.Body>
+                            <Form onSubmit={this.addNewBook}>
+                                <Form.Group >
+                                    <Form.Label>Title</Form.Label>
+                                    <Form.Control type="text" name="title" onChange={this.handleChange} value={this.state.title} />
+                                </Form.Group>
+                                <Form.Group >
+                                    <Form.Label>Author</Form.Label>
+                                    <Form.Control type="text" name="author" onChange={this.handleChange} value={this.state.author} />
+                                </Form.Group>
+                                <Form.Group >
+                                    <Form.Label>Category</Form.Label>
+                                    <Form.Control type="text" name="category" onChange={this.handleChange} value={this.state.category} />
+                                </Form.Group>
+                                <Form.Group >
+                                    <Form.Label>Pages</Form.Label>
+                                    <Form.Control type="number" name="numOfPages" onChange={this.handleChange} value={this.state.numOfpages} />
+                                </Form.Group>
+                                <Form.Group >
+                                    <Form.Label>Description</Form.Label>
+                                    <Form.Control as="textarea" rows="3" name="description" onChange={this.handleChange} value={this.state.description} />
+                                </Form.Group>
+                                <Form.Group >
+                                    <Form.Label>cover</Form.Label>
+                                    <Form.Control type="text" name="cover" onChange={this.handleChange} value={this.state.cover} />
+                                </Form.Group>
+                                <Form.Text style={{ color: 'darkred', fontWeight: 'bold' }}>{this.state.enteredDataValidation}</Form.Text>
+                                <Button variant="primary" size="lg" block onClick={this.addNewBook}>
+                                    Add
                        </Button>
-                    </Form>
-  </Card.Body>
-</Card>
+                            </Form>
+                        </Card.Body>
+                    </Card>
                 </Row>
             </>
 
