@@ -9,7 +9,7 @@ class AuthorDetails extends React.Component {
         this.state = {
             author: {},
             isHidden: true,
-            error: ""
+            error: "",
         }
     }
     componentDidMount() {
