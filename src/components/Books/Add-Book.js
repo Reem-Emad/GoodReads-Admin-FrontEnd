@@ -62,9 +62,13 @@ class AddBook extends React.Component {
         return (
             <>
                 <Navbar></Navbar>
-                <Row className="no-gutters">
-
-                    <Form onSubmit={this.addNewBook}>
+                <Row className="no-gutters" className="justify-content-md-center" >
+              
+                <Card className="text-center" style={{ width: '30rem' }}>
+  <Card.Header>Add Book!</Card.Header>
+  <Card.Body>
+    <Card.Text>
+    <Form onSubmit={this.addNewBook}>
                         <Form.Group >
                             <Form.Label>Title</Form.Label>
                             <Form.Control type="text" name="title" onChange={this.handleChange} value={this.state.title} />
@@ -90,11 +94,14 @@ class AddBook extends React.Component {
                             <Form.Control type="text" name="cover" onChange={this.handleChange} value={this.state.cover} />
                         </Form.Group>
                         <Form.Text style={{ color: 'darkred', fontWeight: 'bold' }}>{this.state.enteredDataValidation}</Form.Text>
-                        <Button variant="primary" onClick={this.addNewBook}>
+                        <Button variant="primary" size="lg" block onClick={this.addNewBook}>
                             Add
                        </Button>
                     </Form>
-
+    </Card.Text>
+    
+  </Card.Body>
+</Card>
                 </Row>
             </>
 
