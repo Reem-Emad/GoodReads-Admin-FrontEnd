@@ -13,8 +13,8 @@ class CategoriesAdminList extends React.Component {
      }
      componentDidMount() {
           getCategories()
-              .then(res => {
-                  this.setState({ Categories: res });
+              .then(categories => {
+                  this.setState({ Categories: categories });
               })
               .catch(err => {
                   console.log(err)

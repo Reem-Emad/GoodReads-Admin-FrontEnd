@@ -3,17 +3,14 @@ const BACKEND_URL = 'http://localhost:3000';
 
 
 export const getCategories = () => {
-    return axios.get(`${BACKEND_URL}/api/categories`, {
-    })
+    return axios.get(`${BACKEND_URL}/api/categories`,{ headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}`} })
         .then(res => {
             return res.data;
-
         });
 }
 
 export const getCategoriestById = (id) => {
-    return axios.get(`${BACKEND_URL}/api/categories/${id}`, {
-    })
+    return axios.get(`${BACKEND_URL}/api/categories/${id}`,{ headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}`}})
         .then(res => {
             return res.data;
         });

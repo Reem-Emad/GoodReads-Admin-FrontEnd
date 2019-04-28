@@ -64,10 +64,9 @@ class AddBook extends React.Component {
                 <Navbar></Navbar>
                 <Row className="no-gutters" className="justify-content-md-center" >
               
-                <Card className="text-center" style={{ width: '30rem' }}>
+                <Card tag="div" className="text-center" style={{ width: '30rem' }}>
   <Card.Header>Add Book!</Card.Header>
   <Card.Body>
-    <Card.Text>
     <Form onSubmit={this.addNewBook}>
                         <Form.Group >
                             <Form.Label>Title</Form.Label>
@@ -98,8 +97,6 @@ class AddBook extends React.Component {
                             Add
                        </Button>
                     </Form>
-    </Card.Text>
-    
   </Card.Body>
 </Card>
                 </Row>
