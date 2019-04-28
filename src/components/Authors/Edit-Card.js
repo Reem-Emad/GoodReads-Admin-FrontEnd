@@ -21,6 +21,7 @@ class EditCard extends React.Component {
         this.setMemberS = this.setMemberS.bind(this);
         this.setDesc = this.setDesc.bind(this);
         this.handelDelete = this.handelDelete.bind(this);
+        this.handelDeletePop = this.handelDeletePop.bind(this);
         this.state = {
             show: false,
             smShow: false,
@@ -73,7 +74,9 @@ class EditCard extends React.Component {
         const value = e.target.value;
         this.setState({ [name]: value });
     }
-
+    handelDeletePop() {
+        this.setState({ smShow: !this.state.smShow })
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         const { name } = this.state;
@@ -106,7 +109,7 @@ class EditCard extends React.Component {
         DeleteAuthor(this.props.id)
             .then(res => {
                 console.log(res);
-                // this.setState({ smShow: true })
+                this.setState({ smShow: true })
                 // window.location.reload();
             })
             .catch(err => {
@@ -114,7 +117,7 @@ class EditCard extends React.Component {
             })
     }
     render() {
-        let smClose = () => this.setState({ smShow: false });
+        // let smClose = () => this.setState({ smShow: false });
         return (
             <>
                 <Col className="m-3">
@@ -191,7 +194,7 @@ class EditCard extends React.Component {
                 <Modal
                     size="sm"
                     show={this.state.smShow}
-                    onHide={smClose}
+                    onHide={this.state.smShow}
                     aria-labelledby="example-modal-sizes-title-sm"
                 >
                     <Modal.Header closeButton>
@@ -202,6 +205,9 @@ class EditCard extends React.Component {
                     <Modal.Body>
                         Author Deleted!
           </Modal.Body>
+                    <Button type="submit" variant="primary" onClick={this.handelDeletePop}>
+                        Ok
+                       </Button>
                 </Modal>
             </>
 
