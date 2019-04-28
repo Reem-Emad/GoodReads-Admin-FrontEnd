@@ -1,11 +1,11 @@
 import React from 'react';
-import EditCard from './Edit-Card';
-import Books from '../../Books';
+import BookCard from './Card';
 import Navbar from '../Shared/Navbar';
-import { Row, Col, Card, Form, Modal, Button } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getBooks } from '../../API/Book';
 import { withRouter } from 'react-router-dom';
+import PopupMsg from '../Shared/PopupMsg';
 export const MyContext = React.createContext({});
 
 class AdminBooksList extends React.Component {
@@ -17,11 +17,19 @@ class AdminBooksList extends React.Component {
 
             allBooks: [],
             error: '',
-            render: false
+            showModal: false
+
+
 
         };
     }
+    showModal = () => {
+        this.setState({ showModal: true });
+    }
 
+    hideModal = () => {
+        this.setState({ showModal: false });
+    }
     addNewBook = (e) => {
         e.preventDefault();
         this.props.history.push('/admin/add/book');
@@ -31,21 +39,27 @@ class AdminBooksList extends React.Component {
             .then(books => { this.setState({ allBooks: books }) })
             .catch(err => { this.setState({ error: "server error" }) })
     }
-    changeState = () => {
-        getBooks()
-            .then(books => { this.setState({ allBooks: books }) })
-            .catch(err => { this.setState({ error: "server error" }) })
-        // this.setState({render: !this.state.render})
+    deleteBookFromList = (deletedBook) => {
+        const newArray = this.state.allBooks.filter(book => {
+            return book.id !== deletedBook.id
+
+
+        })
+        this.setState({ allBooks: newArray });
+        this.showModal();
     }
     render() {
         const value = {
             state: this.state,
-            changeState: this.changeState,
+            deleteBookFromList: this.deleteBookFromList,
         }
+
+
         return (
             <MyContext.Provider value={value}>
                 <>
                     <Navbar></Navbar>
+                    <PopupMsg show={this.state.showModal} onHide={this.hideModal} msg="Book Deleted!" />
                     <Row className="no-gutters">
                         <Col key="0" className="m-3">
                             <Card style={{ width: '18rem' }} onClick={this.addNewBook}>
@@ -58,7 +72,7 @@ class AdminBooksList extends React.Component {
                             </Card>
                         </Col>
 
-                        {this.state.allBooks.map(b => <EditCard key={b.id} id={b.id} cover={b.cover} title={b.title} description={b.description}
+                        {this.state.allBooks.map(b => <BookCard key={b.id} id={b.id} cover={b.cover} title={b.title} description={b.description}
                             author={b.author} category={b.category} pages={b.pages} />)}
 
                     </Row>
@@ -69,3 +83,22 @@ class AdminBooksList extends React.Component {
 }
 
 export default withRouter(AdminBooksList);
+
+
+
+
+// <Modal
+// size="sm"
+// show={this.state.smShow}
+// onHide={smClose}
+// aria-labelledby="example-modal-sizes-title-sm">
+// <Modal.Header closeButton>
+//     <Modal.Title id="example-modal-sizes-title-sm">
+//         Delete
+//    </Modal.Title>
+// </Modal.Header>
+// <Modal.Body>
+//     Book Deleted!
+
+// </Modal.Body>
+// </Modal>

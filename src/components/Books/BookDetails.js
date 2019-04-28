@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../Shared/Navbar';
 import './Style.css';
 import StarRatingComponent from 'react-star-rating-component';
-import { Dropdown, Row, Container, Col, Card, Button, ButtonGroup } from 'react-bootstrap';
+import { Row, Container, Col, Card } from 'react-bootstrap';
 import { getBooksById } from '../../API/Book';
 import { withRouter } from 'react-router-dom';
 
