@@ -5,12 +5,14 @@ import StarRatingComponent from 'react-star-rating-component';
 import { Row, Container, Col, Card } from 'react-bootstrap';
 import { getBooksById } from '../../API/Book';
 import { withRouter } from 'react-router-dom';
+import PopupMsg from '../Shared/PopupMsg';
 
 
 class BookDetails extends React.Component {
     state = {
         Book: {},
         error: '',
+        showModal: false
     }
     componentDidMount() {
         const id = this.props.match.params.id;
@@ -24,15 +26,28 @@ class BookDetails extends React.Component {
 
     }
     showAuthor = (e) => {
+        try {
+            this.props.history.push(`/AuthorDetailes/${this.state.Book.authorData[0].id}`)
+        }
+        catch
+        {
+            this.showModal();
 
-        this.props.history.push(`/AuthorDetailes/${this.state.Book.authorData[0].id}`)
+        }
+    }
+    showModal = () => {
+        this.setState({ showModal: true });
     }
 
+    hideModal = () => {
+        this.setState({ showModal: false });
+    }
     render() {
 
         return (
             <>
                 <Navbar></Navbar>
+                <PopupMsg show={this.state.showModal} onHide={this.hideModal} msg="Sorry but author details are not available" />
                 <Container className="detailedCard">
                     <Row>
                         <Col md="1"></Col>
