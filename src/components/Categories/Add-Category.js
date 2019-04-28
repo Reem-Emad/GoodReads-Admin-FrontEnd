@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Card, Form, Modal, Button } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { addCategory } from '../../API/category';
 
 
 export default class AddCategory extends Component {
@@ -37,7 +38,25 @@ export default class AddCategory extends Component {
                 error: false,
                 Name: ''
             })
-            //here should add the category using back end
+            addCategory = (e) => {
+                e.preventDefault();
+                const { Name } = this.state;
+                if (Name === '')
+                    this.setState({ enteredDataValidation: 'Name is required' })
+                else {
+                    addCategory({ Name })
+                        .then(res => {
+                            if (res === 'category already exist') {
+                                this.setState({ enteredDataValidation: 'category already exist' })
+                            }
+                            else {
+                                this.setState({ enteredDataValidation: '' })
+                                this.props.history.push('/admin/categories');
+                            }
+                        })
+                        .catch(err => { this.setState({ error: 'server error' }) })
+                }
+            }
                       
             //finaly close modal
             this.handleClose();
@@ -88,7 +107,7 @@ export default class AddCategory extends Component {
                             <Button variant="secondary" onClick={this.handleClose}>
                                 Close
                        </Button>
-                            <Button variant="primary" onClick={this.handleSubmit}>
+                            <Button variant="primary" onSubmit={this.addCategoryk}>
                                 Add
                        </Button>
                         </Modal.Footer>
