@@ -16,3 +16,23 @@ export const getAuthorById = (id) => {
             return res.data;
         })
 }
+export const AddNewAuthor = ({ FullName, Image, NumberOfFriends, NumberOfBooks, Born, Website, Genre, Influences, MemberSince, Description }) => {
+
+    return axois.post(`${BACKEND_URL}/api/authors/add`, {
+        FullName,
+        Image,
+        NumberOfFriends,
+        NumberOfBooks,
+        Born,
+        Website,
+        Genre,
+        Influences,
+        MemberSince,
+        Description
+    })
+        .then(res => {
+            return res.data;
+        })
+        .catch(err => {
+        })
+}

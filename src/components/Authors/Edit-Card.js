@@ -94,24 +94,28 @@ class EditCard extends React.Component {
                                         </Form.Group>
                                         <Form.Group >
                                             <Form.Label>Place of birth</Form.Label>
-                                            <Form.Control type="text" placeholder={this.props.authorDetails.born} />
+                                            <Form.Control type="text" placeholder={this.props.authorDetails.Born} />
                                         </Form.Group>
                                         <Form.Group >
                                             <Form.Label>Website</Form.Label>
-                                            <Form.Control type="text" placeholder={this.props.authorDetails.website} />
+                                            <Form.Control type="text" placeholder={this.props.authorDetails.Website} />
                                         </Form.Group>
                                         <Form.Group >
                                             <Form.Label>Influences</Form.Label>
-                                            <Form.Control type="text" placeholder={this.props.authorDetails.influences} />
+                                            <Form.Control type="text" placeholder={this.props.authorDetails.Influences} />
+                                        </Form.Group>
+                                        <Form.Group >
+                                            <Form.Label>Genre</Form.Label>
+                                            <Form.Control type="text" placeholder={this.props.authorDetails.Genre} />
                                         </Form.Group>
                                         <Form.Group >
                                             <Form.Label>Member Since</Form.Label>
-                                            <Form.Control type="text" placeholder={this.props.authorDetails.member} />
+                                            <Form.Control type="text" placeholder={this.props.authorDetails.MemberSince} />
                                         </Form.Group>
 
                                         <Form.Group >
                                             <Form.Label>Description</Form.Label>
-                                            <Form.Control as="textarea" rows="3" placeholder={this.props.description} />
+                                            <Form.Control as="textarea" rows="3" placeholder={this.props.Description} />
                                         </Form.Group>
                                     </Form>
 
@@ -120,7 +124,7 @@ class EditCard extends React.Component {
                                     <Button variant="secondary" onClick={this.handleClose}>
                                         Close
                        </Button>
-                                    <Button type="submit" variant="primary" onClick={this.handleClose}>
+                                    <Button type="submit" variant="primary" onClick={this.handelSave}>
                                         Save Changes
                        </Button>
                                 </Modal.Footer>
