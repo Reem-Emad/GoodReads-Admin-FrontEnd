@@ -23,7 +23,7 @@ class CategoriesAdminList extends React.Component {
       }
      DeleteHandelAdmin = (id) => {
           const res = this.state.Categories.filter(data =>
-               data.Id !== id
+               data.id !== id
           )
           this.setState({ Categories: res })
      }
@@ -35,9 +35,9 @@ class CategoriesAdminList extends React.Component {
                     <AddCategory />
                     <Row className="no-gutters">
                          {this.state.Categories.map(b =>
-                              <EditCard key={b.Id}
-                                   id={b.Id}
-                                   name={b.Name}
+                              <EditCard key={Math.random()}
+                                   id={b.id}
+                                   name={b.name}
                                    delfun={this.DeleteHandelAdmin}
                               />
                          )}
