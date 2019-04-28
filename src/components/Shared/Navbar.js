@@ -56,7 +56,7 @@ class NavBar extends React.PureComponent {
                             <Navbar expand="lg" className='navbarStyle'>
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                                 <Navbar.Collapse id="basic-navbar-nav">
-                                    <Nav className="mr-auto" className='navbarLinks'>
+                                    <Nav className="mr-auto, navbarLinks" >
                                         <Nav.Link name='categories' onClick={this.handleClick}>Categories</Nav.Link>
                                         <Nav.Link name='books' onClick={this.handleClick}>Books</Nav.Link>
                                         <Nav.Link name='authors' onClick={this.handleClick}>Authors</Nav.Link>

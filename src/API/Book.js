@@ -17,9 +17,16 @@ export const getBooksById = (id) => {
         })
 }
 export const addNewBook = ({ title, author, description, numOfPages, category, cover }) => {
-   
+
     return axios.post(`${BACKEND_URL}/api/books/add`, { title, author, description, numOfPages, category, cover }, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } })
         .then(res => res.data)
+}
+export const editBook = ({ id, title, author, description, numOfPages, category, cover }) => {
+  
+    return axios.patch(`${BACKEND_URL}/api/books/${id}`, { title, author, description, numOfPages, category, cover }, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } })
+        .then(res => {
+            return res.data;
+        })
 }
 export const deleteBook = (id) => {
     return axios.delete(`${BACKEND_URL}/api/books/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } })
