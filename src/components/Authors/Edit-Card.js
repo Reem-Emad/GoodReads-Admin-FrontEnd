@@ -20,6 +20,7 @@ class EditCard extends React.Component {
         this.setInfl = this.setInfl.bind(this);
         this.setMemberS = this.setMemberS.bind(this);
         this.setDesc = this.setDesc.bind(this);
+        this.handelDelete = this.handelDelete.bind(this);
         this.state = {
             show: false,
             smShow: false,
@@ -101,6 +102,17 @@ class EditCard extends React.Component {
                 console.log(err)
             })
     }
+    handelDelete() {
+        DeleteAuthor(this.props.id)
+            .then(res => {
+                console.log(res);
+                // this.setState({ smShow: true })
+                // window.location.reload();
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
     render() {
         let smClose = () => this.setState({ smShow: false });
         return (
@@ -112,7 +124,7 @@ class EditCard extends React.Component {
                             <Card.Title><Link to={`/AuthorDetailes/${this.props.id}`}>{this.props.name}</Link>
                                 <Card.Text className="float-right">
                                     <FontAwesomeIcon className="mr-3" icon="edit" onClick={this.toggle} />
-                                    <FontAwesomeIcon icon="trash-alt" onClick={() => this.setState({ smShow: true })} />
+                                    <FontAwesomeIcon icon="trash-alt" onClick={this.handelDelete} />
                                 </Card.Text>
                             </Card.Title>
 
