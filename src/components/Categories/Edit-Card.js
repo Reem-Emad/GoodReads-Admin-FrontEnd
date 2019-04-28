@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EditCategory from './Edit-Category'
+import { deletecategory } from '../../API/category'
 
 class EditCard extends React.Component {
     constructor(props) {
@@ -18,6 +19,12 @@ class EditCard extends React.Component {
     hideUpdate = () => {
         this.setState({showUpdate: false})
     }
+    handleDelete = (Name,enableChange) => (e) => {
+        deletecategory(Name)
+            .then(res => { enableChange() })
+            .catch(err => { this.setState({ error: 'server error' }) })
+    }
+   
 
     render() {
         return (
@@ -38,7 +45,7 @@ class EditCard extends React.Component {
                             <Card.Title>{this.props.name}
                                 <Card.Text className="float-right">
                                     <FontAwesomeIcon className="mr-3" icon="edit" onClick={this.ShowUpdate} />
-                                    <FontAwesomeIcon icon="trash-alt" onClick={() => {this.props.delfun(this.props.id)} } />
+                                    <FontAwesomeIcon icon="trash-alt" onClick={this.handleDelete(this.props.name)} />
                                 </Card.Text>
                             </Card.Title>
 

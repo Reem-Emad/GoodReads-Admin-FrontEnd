@@ -15,7 +15,7 @@ import BookDetailes from './components/Books/BookDetails';
 import AdminBooksList from './components/Books/Admin-List';
 import AdminAuthorsList from './components/Authors/Admin-List';
 import AdminCategoriesList from './components/Categories/Admin-List';
-import AddnewBook from './components/Books/Add-Book';
+import AddnewBook from './components/Books/Form';
 import Users from './Users';
 
 
@@ -60,6 +60,7 @@ class App extends React.PureComponent {
                             <Route exact path="/" component={HomePage} />
                             <Route exact path="/admin/books" component={AdminBooksList} />
                             <Route exact path="/admin/add/book" component={AddnewBook} />
+                            <Route exact path="/admin/edit/book/:id" component={AddnewBook} />
                             <Route exact path="/admin/authors" component={AdminAuthorsList} />
                             <Route exact path="/admin/categories" component={AdminCategoriesList} />
                             <Route exact path="/bookDetailes/:id" component={BookDetailes} />
