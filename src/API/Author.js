@@ -29,7 +29,7 @@ export const AddNewAuthor = ({ FullName, Image, NumberOfFriends, NumberOfBooks, 
         Influences,
         MemberSince,
         Description
-    })
+    }, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } })
         .then(res => {
             return res.data;
         })
