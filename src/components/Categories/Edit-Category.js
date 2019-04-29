@@ -18,9 +18,12 @@ export default class EditCategory extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            Name: this.props.Name,
-            show: this.props.show
+        editCategory()
+        .then(categories => {
+            this.setState({ Categories: categories });
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
 
@@ -97,7 +100,7 @@ export default class EditCategory extends Component {
                             <Button variant="secondary" onClick={this.handleClose}>
                                 Close
                        </Button>
-                            <Button variant="primary"  onClick={this.handleSubmit(this.props.name)}>
+                            <Button variant="primary"  onClick={this.handleSubmit(this.state.Name)}>
                                 Edit
                        </Button>
                         </Modal.Footer>

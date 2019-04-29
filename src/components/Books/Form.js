@@ -100,7 +100,7 @@ class AddBook extends React.Component {
                     <Card className="text-center" style={{ width: '30rem' }}>
                         <Card.Header>{this.state.formHeader}</Card.Header>
                         <Card.Body>
-                            <Card.Text>
+                            
                                 <Form onSubmit={this.handleSubmit}>
                                     <Form.Group >
                                         <Form.Label>Title</Form.Label>
@@ -131,7 +131,7 @@ class AddBook extends React.Component {
                                         {this.state.formButton}
                                     </Button>
                                 </Form>
-                            </Card.Text>
+                            
 
                         </Card.Body>
                     </Card>

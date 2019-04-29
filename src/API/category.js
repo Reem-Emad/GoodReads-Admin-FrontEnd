@@ -19,7 +19,7 @@ export const getCategoriestById = (id) => {
 
 export const editCategory = ({ name, id }) => {
 
-    return axios.patch(`${BACKEND_URL}/api/categories/${id}`, { name })
+    return axios.patch(`${BACKEND_URL}/api/categories/${id}`, { name },{ headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}`}})
         .then(res => res.data);
 }
 
