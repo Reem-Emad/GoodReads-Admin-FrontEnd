@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Card, Col, Modal, Button, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { MyContext } from '../../App';
+import { MyContext } from './Admin-List';
 import SimpleSchema from 'simpl-schema';
 import { EditAuthor, DeleteAuthor } from '../../API/Author'
 
@@ -23,6 +23,7 @@ class EditCard extends React.Component {
         this.handelDelete = this.handelDelete.bind(this);
         this.handelDeletePop = this.handelDeletePop.bind(this);
         this.state = {
+            AllAuthor: [],
             show: false,
             smShow: false,
             name: '',
@@ -92,125 +93,135 @@ class EditCard extends React.Component {
         console.log(validationContext.validationErrors());
     }
 
-    handelSave() {
+    handelSave = (deleteAuthorFromList) => (e) => {
         const { authorName, AuthorImage, numberOfFriends, numberOfBooks, PlaceOfBirth, Website, Influences, MemberSince, Description } = this.state;
         const gnere = "";
         EditAuthor(this.props.id, { FullName: authorName, Image: AuthorImage, NumberOfFriends: Number(numberOfFriends), NumberOfBooks: Number(numberOfBooks), Born: PlaceOfBirth, Website: Website, Genre: gnere, Influences: Influences, MemberSince: MemberSince, Description: Description })
             .then(res => {
                 console.log(res);
                 this.toggle();
+                deleteAuthorFromList();
 
             })
             .catch(err => {
                 console.log(err)
             })
     }
-    handelDelete() {
-        DeleteAuthor(this.props.id)
+    handelDelete = (id, deleteAuthorFromList) => (e) => {
+        DeleteAuthor(id)
             .then(res => {
                 console.log(res);
-                this.setState({ smShow: true })
+                deleteAuthorFromList(res);
+                // this.setState({ smShow: true })
                 // window.location.reload();
             })
             .catch(err => {
                 console.log(err)
             })
     }
+
     render() {
+
         // let smClose = () => this.setState({ smShow: false });
         return (
-            <>
-                <Col className="m-3">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src={this.props.image} style={{ height: '20rem' }} />
-                        <Card.Body>
-                            <Card.Title><Link to={`/AuthorDetailes/${this.props.id}`}>{this.props.name}</Link>
-                                <Card.Text className="float-right">
-                                    <FontAwesomeIcon className="mr-3" icon="edit" onClick={this.toggle} />
-                                    <FontAwesomeIcon icon="trash-alt" onClick={this.handelDelete} />
-                                </Card.Text>
-                            </Card.Title>
+            <MyContext.Consumer>
 
-                        </Card.Body>
-                    </Card>
-                </Col>
+                {value =>
+                    (
+                        <>
+                            <Col className="m-3">
+                                <Card style={{ width: '18rem' }}>
+                                    <Card.Img variant="top" src={this.props.image} style={{ height: '20rem' }} />
+                                    <Card.Body>
+                                        <Card.Title><Link to={`/AuthorDetailes/${this.props.id}`}>{this.props.name}</Link>
+                                            <Card.Text className="float-right">
+                                                <FontAwesomeIcon className="mr-3" icon="edit" onClick={this.toggle} />
+                                                <FontAwesomeIcon icon="trash-alt" onClick={this.handelDelete(this.props.id, value.deleteAuthorFromList)} />
+                                            </Card.Text>
+                                        </Card.Title>
 
-                <Modal show={this.state.show} onHide={this.toggle}>
-                    <Modal.Header>
-                        <Modal.Title>Edit Author</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
 
-                        <Form onSubmit={this.handleSubmit}>
-                            <Form.Group >
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control name="name" value={this.state.authorName} onChange={this.setName} type="text" placeholder={this.props.name} />
-                            </Form.Group>
-                            <Form.Group >
-                                <Form.Label>Number of books</Form.Label>
-                                <Form.Control type="number" value={this.state.numberOfBooks} onChange={this.setNumOfBooks} placeholder={this.props.authorDetails.NumberOfBooks} />
-                            </Form.Group>
-                            <Form.Group >
-                                <Form.Label>Number Of Friends</Form.Label>
-                                <Form.Control type="number" value={this.state.numberOfFriends} onChange={this.setNumOfFriends} placeholder={this.props.authorDetails.NumberOfFriends} />
-                            </Form.Group>
-                            <Form.Group >
-                                <Form.Label>Place of birth</Form.Label>
-                                <Form.Control type="text" value={this.state.PlaceOfBirth} onChange={this.setPlaceOfBirth} placeholder={this.props.authorDetails.Born} />
-                            </Form.Group>
-                            <Form.Group >
-                                <Form.Label>Website</Form.Label>
-                                <Form.Control type="text" value={this.state.Website} onChange={this.setWebsite} placeholder={this.props.authorDetails.Website} />
-                            </Form.Group>
-                            <Form.Group >
-                                <Form.Label>Influences</Form.Label>
-                                <Form.Control type="text" value={this.state.Influences} onChange={this.setInfl} placeholder={this.props.authorDetails.Influences} />
-                            </Form.Group>
-                            {/* <Form.Group >
+                            <Modal show={this.state.show} onHide={this.toggle}>
+                                <Modal.Header>
+                                    <Modal.Title>Edit Author</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+
+                                    <Form onSubmit={this.handleSubmit}>
+                                        <Form.Group >
+                                            <Form.Label>Name</Form.Label>
+                                            <Form.Control name="name" value={this.state.authorName} onChange={this.setName} type="text" placeholder={this.props.name} />
+                                        </Form.Group>
+                                        <Form.Group >
+                                            <Form.Label>Number of books</Form.Label>
+                                            <Form.Control type="number" value={this.state.numberOfBooks} onChange={this.setNumOfBooks} placeholder={this.props.authorDetails.NumberOfBooks} />
+                                        </Form.Group>
+                                        <Form.Group >
+                                            <Form.Label>Number Of Friends</Form.Label>
+                                            <Form.Control type="number" value={this.state.numberOfFriends} onChange={this.setNumOfFriends} placeholder={this.props.authorDetails.NumberOfFriends} />
+                                        </Form.Group>
+                                        <Form.Group >
+                                            <Form.Label>Place of birth</Form.Label>
+                                            <Form.Control type="text" value={this.state.PlaceOfBirth} onChange={this.setPlaceOfBirth} placeholder={this.props.authorDetails.Born} />
+                                        </Form.Group>
+                                        <Form.Group >
+                                            <Form.Label>Website</Form.Label>
+                                            <Form.Control type="text" value={this.state.Website} onChange={this.setWebsite} placeholder={this.props.authorDetails.Website} />
+                                        </Form.Group>
+                                        <Form.Group >
+                                            <Form.Label>Influences</Form.Label>
+                                            <Form.Control type="text" value={this.state.Influences} onChange={this.setInfl} placeholder={this.props.authorDetails.Influences} />
+                                        </Form.Group>
+                                        {/* <Form.Group >
                                 <Form.Label>Genre</Form.Label>
                                 <Form.Control type="text" value={this.state.authorName} onChange={this.setName}  placeholder={this.props.authorDetails.Genre} />
                             </Form.Group> */}
-                            <Form.Group >
-                                <Form.Label>Member Since</Form.Label>
-                                <Form.Control type="text" value={this.state.MemberSince} onChange={this.setMemberS} placeholder={this.props.authorDetails.MemberSince} />
-                            </Form.Group>
+                                        <Form.Group >
+                                            <Form.Label>Member Since</Form.Label>
+                                            <Form.Control type="text" value={this.state.MemberSince} onChange={this.setMemberS} placeholder={this.props.authorDetails.MemberSince} />
+                                        </Form.Group>
 
-                            <Form.Group >
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control as="textarea" rows="3" value={this.state.Description} onChange={this.setDesc} placeholder={this.props.Description} />
-                            </Form.Group>
-                        </Form>
+                                        <Form.Group >
+                                            <Form.Label>Description</Form.Label>
+                                            <Form.Control as="textarea" rows="3" value={this.state.Description} onChange={this.setDesc} placeholder={this.props.Description} />
+                                        </Form.Group>
+                                    </Form>
 
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.toggle}>
-                            Close
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={this.toggle}>
+                                        Close
                        </Button>
-                        <Button type="submit" variant="primary" onClick={this.handelSave}>
-                            Save Changes
+                                    <Button type="submit" variant="primary" onClick={this.handelSave(value.deleteAuthorFromList)}>
+                                        Save Changes
                        </Button>
-                    </Modal.Footer>
-                </Modal>
-                <Modal
-                    size="sm"
-                    show={this.state.smShow}
-                    onHide={this.state.smShow}
-                    aria-labelledby="example-modal-sizes-title-sm"
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="example-modal-sizes-title-sm">
-                            Delete
+                                </Modal.Footer>
+                            </Modal>
+                            <Modal
+                                size="sm"
+                                show={this.state.smShow}
+                                onHide={this.state.smShow}
+                                aria-labelledby="example-modal-sizes-title-sm"
+                            >
+                                <Modal.Header closeButton>
+                                    <Modal.Title id="example-modal-sizes-title-sm">
+                                        Delete
             </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        Author Deleted!
+                                </Modal.Header>
+                                <Modal.Body>
+                                    Author Deleted!
           </Modal.Body>
-                    <Button type="submit" variant="primary" onClick={this.handelDeletePop}>
-                        Ok
+                                <Button type="submit" variant="primary" onClick={this.handelDeletePop}>
+                                    Ok
                        </Button>
-                </Modal>
-            </>
-
+                            </Modal>
+                        </>
+                    )
+                }
+            </MyContext.Consumer>
         );
     }
 
