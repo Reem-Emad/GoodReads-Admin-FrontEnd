@@ -100,7 +100,8 @@ export default class EditCategory extends Component {
                             <Button variant="secondary" onClick={this.handleClose}>
                                 Close
                        </Button>
-                            <Button variant="primary"  onClick={this.handleSubmit(this.state.Name)}>
+                            {/* <Button variant="primary"  onClick={this.handleSubmit(this.state.Name)}> */}
+                            <Button variant="primary" >
                                 Edit
                        </Button>
                         </Modal.Footer>
