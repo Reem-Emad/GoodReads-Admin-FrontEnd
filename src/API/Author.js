@@ -1,5 +1,5 @@
 import axois from 'axios';
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000';
 
 export const getAuthors = () => {
     return axois.get(`${BACKEND_URL}/api/authors`, { headers: { authorization: `Bearer ${localStorage.getItem('adminToken')}` } })

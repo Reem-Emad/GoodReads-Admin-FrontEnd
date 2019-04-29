@@ -8,7 +8,7 @@ export default class EditCategory extends Component {
 
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleEdit= this.handleEdit.bind(this);
+        // this.handleEdit= this.handleEdit.bind(this);
 
         this.state = {
             show: false,
@@ -17,12 +17,15 @@ export default class EditCategory extends Component {
         };
     }
 
-    componentDidMount() {
-        this.setState({
-            Name: this.props.Name,
-            show: this.props.show
-        })
-    }
+    // componentDidMount() {
+    //     editCategory()
+    //     .then(categories => {
+    //         this.setState({ Categories: categories });
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+    // }
 
     handleClose() {
         this.props.hideUpdate();
@@ -36,35 +39,35 @@ export default class EditCategory extends Component {
         this.setState({ Name: e.target.value }, () => { console.log("catnamet ", this.state.Name) });
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        if (this.state.Name.length >= 5) {
-            // const Id = this.props.Id;
-            this.setState({
-                error: false,
-                Name: ''
-            })
+    // handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (this.state.Name.length >= 5) {
+    //         // const Id = this.props.Id;
+    //         this.setState({
+    //             error: false,
+    //             Name: ''
+    //         })
             //here should add the category using back end
         
-            editCategory(this.Name)  .
-                  then(this.setState({ enteredDataValidation: '' }))
-                  .then(this.props.history.push('/admin/categores'))
-                .catch(err => { this.setState({ error: 'server error' }); })
+    //         editCategory(this.Name)  .
+    //               then(this.setState({ enteredDataValidation: '' }))
+    //               .then(this.props.history.push('/admin/categores'))
+    //             .catch(err => { this.setState({ error: 'server error' }); })
         
-            //finaly close modal
-            this.handleClose();
-        }
-        else {
-            this.setState({ error: true })
-        }
-    }
+    //         //finaly close modal
+    //         this.handleClose();
+    //     }
+    //     else {
+    //         this.setState({ error: true })
+    //     }
+    // }
 
-    handleEdit =( Name )=>(e)=>{
-        editCategory(Name)  .
-          then(this.setState({ enteredDataValidation: '' }))
-          .then(this.props.history.push('/admin/categores'))
-        .catch(err => { this.setState({ error: 'server error' }); })
-}
+//     handleEdit =( Name )=>(e)=>{
+//         editCategory(Name)  .
+//           then(this.setState({ enteredDataValidation: '' }))
+//           .then(this.props.history.push('/admin/categores'))
+//         .catch(err => { this.setState({ error: 'server error' }); })
+// }
 
     render() {
         return (
@@ -97,7 +100,8 @@ export default class EditCategory extends Component {
                             <Button variant="secondary" onClick={this.handleClose}>
                                 Close
                        </Button>
-                            <Button variant="primary"  onClick={this.handleSubmit(this.props.name)}>
+                            {/* <Button variant="primary"  onClick={this.handleSubmit(this.state.Name)}> */}
+                            <Button variant="primary" >
                                 Edit
                        </Button>
                         </Modal.Footer>

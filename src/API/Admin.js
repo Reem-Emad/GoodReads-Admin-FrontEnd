@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BackEnd_URL = process.env.REACT_APP_BackEnd_URL || 'http://localhost:3000';
+const BackEnd_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000';
 
 export const register = ({ email, password }) => {
     return axios.post(`${BackEnd_URL}/api/admins/register`, { email, password }).then(res => res.data);

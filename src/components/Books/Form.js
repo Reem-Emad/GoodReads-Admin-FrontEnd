@@ -96,12 +96,13 @@ class AddBook extends React.Component {
         return (
             <>
                 <Navbar></Navbar>
-                <Row className="no-gutters justify-content-md-center" >
-                    <Card className="text-center" style={{ width: '30rem' }}>
+                <Row className="no-gutters" className="no-gutters justify-content-md-center" >
+                    <Card tag="div" className="text-center" style={{ width: '30rem' }}>
                         <Card.Header>{this.state.formHeader}</Card.Header>
                         <Card.Body>
-                            <Card.Text>
+                            
                                 <Form onSubmit={this.handleSubmit}>
+
                                     <Form.Group >
                                         <Form.Label>Title</Form.Label>
                                         <Form.Control type="text" name="title" onChange={this.handleChange} value={this.state.title} />
@@ -131,7 +132,7 @@ class AddBook extends React.Component {
                                         {this.state.formButton}
                                     </Button>
                                 </Form>
-                            </Card.Text>
+                            
 
                         </Card.Body>
                     </Card>

@@ -6,6 +6,7 @@ import { Row } from 'react-bootstrap';
 import AddCategory from './Add-Category';
 import {getCategories} from '../../API/category';
 
+
 class CategoriesAdminList extends React.Component {
 
      state = {
@@ -13,8 +14,8 @@ class CategoriesAdminList extends React.Component {
      }
      componentDidMount() {
           getCategories()
-              .then(res => {
-                  this.setState({ Categories: res });
+              .then(categories => {
+                  this.setState({ Categories: categories });
               })
               .catch(err => {
                   console.log(err)
@@ -23,7 +24,7 @@ class CategoriesAdminList extends React.Component {
       }
      DeleteHandelAdmin = (id) => {
           const res = this.state.Categories.filter(data =>
-               data.Id !== id
+               data.id !== id
           )
           this.setState({ Categories: res })
      }
@@ -35,9 +36,9 @@ class CategoriesAdminList extends React.Component {
                     <AddCategory />
                     <Row className="no-gutters">
                          {this.state.Categories.map(b =>
-                              <EditCard key={b.Id}
-                                   id={b.Id}
-                                   name={b.Name}
+                              <EditCard key={b.id}
+                                   id={b.id}
+                                   name={b.name}
                                    delfun={this.DeleteHandelAdmin}
                               />
                          )}

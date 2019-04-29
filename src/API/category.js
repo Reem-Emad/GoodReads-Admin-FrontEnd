@@ -1,19 +1,16 @@
 import axios from 'axios';
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000';
 
 
 export const getCategories = () => {
-    return axios.get(`${BACKEND_URL}/api/categories`, {
-    })
+    return axios.get(`${BACKEND_URL}/api/categories`, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } })
         .then(res => {
             return res.data;
-
         });
 }
 
 export const getCategoriestById = (id) => {
-    return axios.get(`${BACKEND_URL}/api/categories/${id}`, {
-    })
+    return axios.get(`${BACKEND_URL}/api/categories/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } })
         .then(res => {
             return res.data;
         });
@@ -22,15 +19,15 @@ export const getCategoriestById = (id) => {
 
 export const editCategory = ({ name, id }) => {
 
-    return axios.patch(`${BACKEND_URL}/api/categories/${id}`, { name })
+    return axios.patch(`${BACKEND_URL}/api/categories/${id}`, { name },{ headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}`}})
         .then(res => res.data);
 }
 
 
 //////////////////////////////////
 export const addCategory = ({ Name }) => {
-   
-    return axios.post(`${BACKEND_URL}/api/categories/add`, {Name }, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } })
+
+    return axios.post(`${BACKEND_URL}/api/categories/add`, { Name }, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } })
         .then(res => res.data)
 }
 export const deletecategory = (Name) => {

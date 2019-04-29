@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BACKEND_URL = 'http://localhost:3000';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000';
 
 
 export const getBooks = () => {
@@ -22,7 +22,7 @@ export const addNewBook = ({ title, author, description, numOfPages, category, c
         .then(res => res.data)
 }
 export const editBook = ({ id, title, author, description, numOfPages, category, cover }) => {
-  
+
     return axios.patch(`${BACKEND_URL}/api/books/${id}`, { title, author, description, numOfPages, category, cover }, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } })
         .then(res => {
             return res.data;
